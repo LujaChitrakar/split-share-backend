@@ -1,0 +1,19 @@
+export const FRIEND_REQUEST_STATUS = {
+    PENDING: "PENDING",
+    ACCEPTED: "ACCEPTED",
+    REJECTED: "REJECTED",
+};
+
+export const BORROW_REQUEST_STATUS = {
+    PENDING: "PENDING",
+    ACCEPTED: "ACCEPTED",
+    REJECTED: "REJECTED",
+};
+
+
+
+// export const REDEEMABLE_POINTS_THRESHOLD = 10000;
+// export const REDEEM_USDC_VALUE = 20;
+
+export const REDEEMABLE_POINTS_THRESHOLD = 10000;
+export const REDEEM_USDC_VALUE = 20;    

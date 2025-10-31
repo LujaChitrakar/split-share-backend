@@ -1,0 +1,34 @@
+# Node.js
+node_modules/
+dist/
+coverage/
+
+# Environment variables
+.env
+
+# Prisma SQLite optional
+prisma/dev.db
+prisma/dev.db-journal
+
+# MySQL Docker volume
+database/data/
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Build cache
+.cache/
+
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+uploads
+uploads/

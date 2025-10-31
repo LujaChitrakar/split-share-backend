@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Group Invite</title>
+  </head>
+  <body
+    style="
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f4;
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    "
+  >
+    <table width="100%" cellpadding="0" cellspacing="0" role="presentation">
+      <tr>
+        <td align="center" style="padding: 24px 12px">
+          <table
+            width="600"
+            cellpadding="0"
+            cellspacing="0"
+            role="presentation"
+            style="
+              max-width: 600px;
+              width: 100%;
+              background-color: #ffffff;
+              border-radius: 6px;
+              overflow: hidden;
+            "
+          >
+            <tr>
+              <td
+                align="center"
+                style="background-color: #f4511e; padding: 20px 16px"
+              >
+                <h1
+                  style="
+                    margin: 0;
+                    color: #ffffff;
+                    font-size: 20px;
+                    line-height: 1.2;
+                    font-weight: 700;
+                  "
+                >
+                  You’ve been invited
+                </h1>
+              </td>
+            </tr>
+
+            <tr>
+              <td
+                style="
+                  padding: 20px 24px;
+                  color: #333333;
+                  font-size: 15px;
+                  line-height: 1.6;
+                "
+              >
+                <p style="margin: 0 0 12px 0">Hello,</p>
+
+                <p style="margin: 0 0 12px 0">
+                  You were invited to join the group:
+                </p>
+
+                <p
+                  style="
+                    margin: 0 0 16px 0;
+                    font-weight: 700;
+                    color: #1e90ff;
+                    font-size: 17px;
+                  "
+                >
+                  {{groupName}}
+                </p>
+
+                <p style="margin: 0 0 16px 0">
+                  Invited by:
+                  <strong style="color: #f4511e">{{inviterName}}</strong>
+                </p>
+
+                <p style="margin: 0 0 18px 0">
+                  To accept the invitation, signup in the chipin app.
+                </p>
+
+                <p style="margin: 0; color: #777777; font-size: 12px">
+                  If you didn't expect this invite, you can ignore this email.
+                </p>
+              </td>
+            </tr>
+
+            <tr>
+              <td
+                style="
+                  background-color: #fafafa;
+                  padding: 12px 24px;
+                  text-align: center;
+                  color: #999999;
+                  font-size: 12px;
+                "
+              >
+                <div>© Chipin</div>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>
