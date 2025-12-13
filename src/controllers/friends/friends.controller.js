@@ -4,6 +4,67 @@ import { FRIEND_REQUEST_STATUS } from "../../constants/user.constants.js";
 import userModel from "../../models/user.model.js";
 import expenseModel from "../../models/expense.model.js";
 import recentActivityController from "../recentActivity/recentActivity.controller.js";
+import { sendNotification } from "../../utils/notification.util.js";
+
+// async function sendFriendRequest(req, res) {
+//     const { userEmail } = req.body;
+//     if (req.user.email?.toString() === userEmail) {
+//         return res.status(StatusCodes.BAD_REQUEST).json({
+//             success: false,
+//             message: "Cannot send friend request to yourself."
+//         })
+//     }
+//     const userToSendRequest = await userModel.findOne({ email: userEmail });
+//     const userId = userToSendRequest?._id;
+
+//     if (!userToSendRequest) {
+//         return res.status(StatusCodes.NOT_FOUND).json({
+//             success: false,
+//             message: "Target user not found",
+//         });
+//     }
+//     const alreadyRequested = await friendshipModel.findOne({
+//         $or: [
+//             { user_one: req.user._id, user_two: userId },
+//             { user_one: userId, user_two: req.user._id },
+//         ],
+//     });
+//     if (alreadyRequested?.status === FRIEND_REQUEST_STATUS.ACCEPTED) {
+//         return res.status(StatusCodes.BAD_REQUEST).json({
+//             success: false,
+//             message: "You are already friends with this user",
+//         });
+//     }
+//     if (alreadyRequested?.status === FRIEND_REQUEST_STATUS.PENDING) {
+//         if (alreadyRequested.user_one?.toString() === req.user?._id?.toString()) {
+//             return res.status(StatusCodes.BAD_REQUEST).json({
+//                 success: false,
+//                 message: "Friend request already sent to this user",
+//             });
+//         } else {
+//             return res.status(StatusCodes.BAD_REQUEST).json({
+//                 success: false,
+//                 message: "This user has already sent you a friend request. Please accept it.",
+//             });
+//         }
+//     }
+//     await new friendshipModel({
+//         user_one: req.user._id,
+//         user_two: userId,
+//         status: FRIEND_REQUEST_STATUS.PENDING,
+//     }).save();
+
+//     await recentActivityController.addToRecentActivities({
+//         user: req.user._id,
+//         otherUser: userId,
+//         activityType: "SEND_FRIEND_REQUEST",
+//     });
+
+//     return res.status(StatusCodes.OK).json({
+//         success: true,
+//         message: "Friend request sent successfully",
+//     });
+// }
 
 async function sendFriendRequest(req, res) {
     const { userEmail } = req.body;
@@ -15,6 +76,7 @@ async function sendFriendRequest(req, res) {
     }
     const userToSendRequest = await userModel.findOne({ email: userEmail });
     const userId = userToSendRequest?._id;
+    const token = userToSendRequest?.notification_token
 
     if (!userToSendRequest) {
         return res.status(StatusCodes.NOT_FOUND).json({
@@ -22,6 +84,12 @@ async function sendFriendRequest(req, res) {
             message: "Target user not found",
         });
     }
+
+    let title = "Friend Request"
+    let body = "Someone is interested in you, tap here to see the request"
+    let metadata = {}
+
+    await sendNotification({ token, title, body, metadata });
     const alreadyRequested = await friendshipModel.findOne({
         $or: [
             { user_one: req.user._id, user_two: userId },
@@ -58,6 +126,8 @@ async function sendFriendRequest(req, res) {
         otherUser: userId,
         activityType: "SEND_FRIEND_REQUEST",
     });
+
+
 
     return res.status(StatusCodes.OK).json({
         success: true,
@@ -162,9 +232,9 @@ async function getMyFriends(req, res) {
                 { username: { $regex: req.query.q, $options: "i" } }
             ]
         })
-        .skip(skip)
-        .limit(limit)
-        .select("_id").lean();
+            .skip(skip)
+            .limit(limit)
+            .select("_id").lean();
 
         const userIds = users.map(u => u._id?.toString());
 

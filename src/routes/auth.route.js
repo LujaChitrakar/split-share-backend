@@ -10,4 +10,7 @@ router.post("/auth/signup", validateZodSchema(signupSchema), AuthController.sign
 router.post("/auth/login", AuthController.login);
 router.post("/auth/signupOrLoginWithPrivy", AuthController.signupOrLoginWithPrivy);
 
+router.post("/auth/pin", AuthController.registerPin)
+router.patch("/auth/pin", AuthController.verifyPin)
+
 export default router;
