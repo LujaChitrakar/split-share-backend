@@ -10,6 +10,8 @@ const userSchema = mongoose.Schema({
     phone_number: String,
     address: String,
     fullname: String,
+    userPIN: String,
+    notification_token: String,
     profile_picture: String,
     profile_visible: {
         ...required_boolean,
